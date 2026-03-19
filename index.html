@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///C:/Users/sborq/Downloads/Proyectos_29.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyectos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=DM+Sans:wght@500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #faf8f4; --bg-secondary: #f4f1ec; --text: #1a1a1a;
+    --text-secondary: #4a4a45; --text-tertiary: #525250;
+    --border: rgba(0,0,0,0.28); --border-secondary: rgba(0,0,0,0.42);
+    --border-primary: rgba(0,0,0,0.38); --radius: 8px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a1a; --bg-secondary: #222222; --text: #f0efe9;
+      --text-secondary: #c0bfb9; --text-tertiary: #8a8a84;
+      --border: rgba(255,255,255,0.15); --border-secondary: rgba(255,255,255,0.26);
+      --border-primary: rgba(255,255,255,0.36);
+    }
+  }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; padding: 2.5rem 2rem 4rem; max-width: 960px; margin: 0 auto; }
+  .topbar { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; }
+  .title { font-size: 18px; font-weight: 500; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+  .btn-new { font-size: 13px; color: var(--text-tertiary); background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font); }
+  .btn-new:hover { color: var(--text); }
+  .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: #aaa; display: inline-block; margin-left: 6px; vertical-align: middle; }
+  .sync-dot.ok { background: #4caf50; }
+  .sync-dot.err { background: #f44336; }
+  .sync-dot.loading { background: #ff9800; }
+  .filters { display: flex; flex-direction: row; gap: 0; margin-bottom: 1.5rem; align-items: center; flex-wrap: wrap; border: 0.5px solid var(--border-secondary); border-radius: var(--radius); padding: 0.5rem 1rem; background: var(--bg); }
+  .filter-row { display: flex; align-items: center; gap: 6px; padding: 0 16px; }
+  .fg-label { font-size: 13px; color: var(--text); padding-right: 12px; white-space: nowrap; font-family: var(--font); }
+  .fsel { font-size: 13px; background: transparent; border: none; color: var(--text-tertiary); cursor: pointer; outline: none; font-family: var(--font); padding: 0; width: 100px; }
+  .fsel:hover { color: var(--text); }
+  .grid { display: flex; flex-direction: column; gap: 1px; border: 0.5px solid var(--border-secondary); border-radius: var(--radius); overflow: hidden; background: var(--border); }
+  .card { background: var(--bg); }
+  .card:hover { background: var(--bg-secondary); }
+  .card-main { display: grid; grid-template-columns: 16px 2fr 80px 28px 95px 50px 90px 75px; align-items: center; gap: 8px; padding: 0.75rem 1rem; }
+  .card-name { font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); cursor: text; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: 0.02em; }
+  .card-name:hover { border-bottom: 0.5px solid var(--border-secondary); }
+  .card-name[contenteditable="true"] { outline: none; white-space: normal; overflow: visible; }
+  .csel-card { font-size: 12px; color: var(--text-tertiary); border: 0.5px solid var(--border); border-radius: 2px; padding: 0 5px; background: transparent; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; text-align: center; text-align-last: center; height: 1.6em; line-height: 1.6; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .psel { font-size: 12px; background: transparent; border: none; color: var(--text-tertiary); cursor: pointer; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; text-align: center; height: 1.4em; padding: 0; line-height: 1.4; }
+  .col-prog { display: flex; align-items: center; }
+  .prog-track { flex: 1; height: 1px; background: var(--border); }
+  .prog-fill { height: 100%; background: var(--text); transition: width 0.3s; }
+  .col-count { font-size: 12px; color: var(--text-tertiary); text-align: right; }
+  .meta-date { font-size: 12px; color: var(--text-tertiary); text-align: center; cursor: pointer; }
+  .meta-date:hover { border-bottom: 0.5px solid var(--border-secondary); }
+  .meta-date-input { font-size: 12px; color: var(--text-tertiary); background: transparent; border: none; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; }
+  .ssel { font-size: 12px; background: transparent; border: none; color: var(--text-tertiary); cursor: pointer; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; text-align: center; height: 1.4em; padding: 0; line-height: 1.4; }
+  .col-toggle { font-size: 13px; color: var(--text-tertiary); background: none; border: none; cursor: pointer; font-family: var(--font); padding: 0; line-height: 1; }
+  .col-toggle:hover { color: var(--text); }
+  .card-tasks { display: none; padding: 0 1rem 0.75rem 1rem; border-top: 0.5px solid var(--border); }
+  .card.open .card-tasks { display: flex; flex-direction: column; gap: 6px; padding-top: 0.6rem; }
+  .task-row { display: flex; align-items: baseline; gap: 8px; }
+  .cb { width: 12px; height: 12px; border: 0.5px solid var(--border-secondary); border-radius: 2px; flex-shrink: 0; cursor: pointer; background: #b8b0a4; position: relative; top: 2px; }
+  .cb.on { background: transparent; border-color: var(--border-secondary); }
+  .cb.on::after { content: "✓"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-52%); font-size: 7px; color: var(--text-tertiary); line-height: 1; }
+  .task-t { font-size: 13.5px; color: var(--text); flex: 1; line-height: 1.35; cursor: pointer; }
+  .task-t[contenteditable="true"] { outline: none; cursor: text; }
+  .task-t.done { color: var(--text-tertiary); }
+  /* Drag & drop tasks */
+  .task-row { display: flex; align-items: baseline; gap: 8px; cursor: default; transition: opacity 0.15s; }
+  .task-row.dragging { opacity: 0.35; }
+  .task-row.drag-over { border-top: 1.5px solid var(--text-tertiary); }
+  .drag-handle { font-size: 11px; color: var(--border-secondary); cursor: grab; user-select: none; padding: 0 2px; opacity: 0; transition: opacity 0.15s; flex-shrink: 0; }
+  .task-row:hover .drag-handle { opacity: 1; }
+  /* Fecha de tarea */
+  .task-date { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; cursor: pointer; border-bottom: 0.5px solid transparent; flex-shrink: 0; text-align: right; min-width: 72px; margin-left: auto; }
+  .task-date:hover { border-bottom-color: var(--border-secondary); }
+  .task-date.no-date { opacity: 0; transition: opacity 0.15s; }
+  .task-row:hover .task-date.no-date { opacity: 0.5; }
+  .task-date-input { font-size: 11px; color: var(--text-tertiary); background: transparent; border: none; outline: none; font-family: var(--font); width: 100px; padding: 0; }
+  /* Título editable */
+  .title-editable { font-family: 'Josefin Sans', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; display: inline; border-bottom: 0.5px solid transparent; transition: border-color 0.15s; }
+  .title-editable:hover { border-bottom-color: var(--border-secondary); }
+  .title-editable[contenteditable="true"] { outline: none; border-bottom-color: var(--border-secondary); }
+  /* Drag projects */
+  .card { background: var(--bg); transition: opacity 0.15s, box-shadow 0.15s; }
+  .card:hover { background: var(--bg-secondary); }
+  .card.proj-dragging { opacity: 0.3; }
+  .card.proj-drag-over-top { box-shadow: 0 -2px 0 var(--text-tertiary); }
+  .card.proj-drag-over-bot { box-shadow: 0 2px 0 var(--text-tertiary); }
+  .tdel { font-size: 12px; color: var(--border-secondary); cursor: pointer; line-height: 1; background: none; border: none; font-family: var(--font); opacity: 0; transition: opacity 0.15s; flex-shrink: 0; width: 12px; text-align: center; }
+  .task-row:hover .tdel { opacity: 1; }
+  .tdel:hover { color: var(--text-tertiary); }
+  .add-row { display: flex; align-items: center; gap: 8px; }
+  .add-row input { font-size: 12px; flex: 1; background: transparent; border: none; border-bottom: 0.5px solid transparent; color: var(--text-tertiary); outline: none; padding: 2px 0; font-family: var(--font); padding-left: 20px; }
+  .add-row input::placeholder { color: var(--text-tertiary); font-size: 12px; }
+  .add-row input:focus { border-bottom-color: var(--border); }
+  .fdel { font-size: 12px; background: none; border: none; color: var(--text-tertiary); cursor: pointer; padding: 0 20px 0 0; font-family: var(--font); margin-left: auto; }
+  .fdel:hover { color: var(--text); }
+  .empty { padding: 2.5rem 1rem; text-align: center; font-size: 13px; color: var(--text-tertiary); background: var(--bg); }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); align-items: flex-start; justify-content: center; padding-top: 80px; z-index: 100; }
+  .overlay.open { display: flex; }
+  .modal { background: var(--bg); border: 0.5px solid var(--border-secondary); border-radius: var(--radius); padding: 1.4rem; width: 340px; display: flex; flex-direction: column; gap: 14px; }
+  .modal-title { font-size: 14px; font-weight: 500; color: var(--text); }
+  .field label { display: block; font-size: 11px; color: var(--text-tertiary); margin-bottom: 5px; letter-spacing: 0.04em; }
+  .field input, .field select { width: 100%; font-size: 13px; background: transparent; border: none; border-bottom: 0.5px solid var(--border-secondary); border-radius: 0; color: var(--text); outline: none; padding: 4px 0; font-family: var(--font); }
+  .field input:focus, .field select:focus { border-bottom-color: var(--border-primary); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cat-manager { display: flex; flex-direction: column; gap: 8px; }
+  .cat-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cat-chip { font-size: 12px; border: 0.5px solid var(--border); border-radius: 2px; padding: 2px 8px; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; background: var(--bg-secondary); }
+  .cat-chip-del { font-size: 12px; color: var(--text-tertiary); cursor: pointer; background: none; border: none; font-family: var(--font); }
+  .cat-chip-name { cursor: pointer; border-bottom: 0.5px solid transparent; }
+  .cat-chip-name:hover { border-bottom-color: var(--border-secondary); }
+  .cat-chip-input { font-size: 12px; background: transparent; border: none; border-bottom: 0.5px solid var(--border-secondary); outline: none; color: var(--text-secondary); font-family: var(--font); width: 80px; padding: 0; }
+  .cat-add-row { display: flex; gap: 8px; align-items: center; }
+  .cat-add-row input { font-size: 13px; flex: 1; background: transparent; border: none; border-bottom: 0.5px solid var(--border); color: var(--text); outline: none; padding: 3px 0; font-family: var(--font); }
+  .cat-add-row input::placeholder { color: var(--border-secondary); }
+  .cat-add-row button { font-size: 13px; background: none; border: none; cursor: pointer; color: var(--text-tertiary); padding: 0; font-family: var(--font); }
+  .cat-add-row button:hover { color: var(--text); }
+  .modal-foot { display: flex; justify-content: flex-end; gap: 14px; margin-top: 4px; }
+  .modal-foot button { font-size: 13px; background: none; border: none; cursor: pointer; color: var(--text-tertiary); padding: 0; font-family: var(--font); }
+  .modal-foot .confirm { color: var(--text); font-weight: 500; }
+  .cat-panel { margin-bottom: 1.2rem; padding: 0.75rem 1rem; border: 0.5px solid var(--border); border-radius: var(--radius); }
+  .cat-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .cat-panel-title { font-size: 12px; color: var(--text-tertiary); letter-spacing: 0.04em; }
+  .cat-panel-toggle { font-size: 12px; color: var(--text-tertiary); background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font); }
+  .cat-panel-body { display: flex; flex-direction: column; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="title"><span class="title-editable" id="dash-title" onclick="startRenameTitle(event)">PROGRAMACIÓN&nbsp; SB</span> <span class="sync-dot ok" id="sync-dot"></span></div>
+    <div class="subtitle" id="sub">9 proyectos · 8 activos · 10/31 tareas</div>
+  </div>
+</div>
+
+<div class="cat-panel" id="cat-panel" style="display:none;">
+  <div class="cat-panel-header">
+    <span class="cat-panel-title">GESTIONAR CATEGORÍAS</span>
+    <button class="cat-panel-toggle" onclick="toggleCatPanel()">cerrar</button>
+  </div>
+  <div class="cat-panel-body">
+    <div class="cat-list" id="cat-chips-main"><div class="cat-chip"><span class="cat-chip-name" onclick="startRename(&#39;Oficina&#39;,this)">Oficina</span><button class="cat-chip-del" onclick="deleteCat(&#39;Oficina&#39;)">×</button></div><div class="cat-chip"><span class="cat-chip-name" onclick="startRename(&#39;Personal&#39;,this)">Personal</span><button class="cat-chip-del" onclick="deleteCat(&#39;Personal&#39;)">×</button></div><div class="cat-chip"><span class="cat-chip-name" onclick="startRename(&#39;Externos&#39;,this)">Externos</span><button class="cat-chip-del" onclick="deleteCat(&#39;Externos&#39;)">×</button></div></div>
+    <div class="cat-add-row">
+      <input type="text" id="new-cat-main" placeholder="Nueva categoría..." onkeydown="if(event.key===&#39;Enter&#39;)addCatMain()">
+      <button onclick="addCatMain()">+ agregar</button>
+    </div>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="filter-row">
+    <span class="fg-label">Categoría</span>
+    <select id="f-cat" class="fsel" onchange="setFSel(&#39;c&#39;,this.value)"><option value="all" selected="">Todas</option><option value="Oficina">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option></select>
+  </div>
+  <div style="width:0.5px;height:16px;background:var(--border-secondary);flex-shrink:0;"></div>
+  <div class="filter-row">
+    <span class="fg-label">Prioridad</span>
+    <select id="f-prio" class="fsel" onchange="setFSel(&#39;p&#39;,this.value)">
+      <option value="all">Todas</option>
+      <option value="high">Alta</option>
+      <option value="low">Baja</option>
+    </select>
+  </div>
+  <div style="width:0.5px;height:16px;background:var(--border-secondary);flex-shrink:0;"></div>
+  <div class="filter-row">
+    <span class="fg-label">Estado</span>
+    <select id="f-estado" class="fsel" onchange="setFSel(&#39;s&#39;,this.value)">
+      <option value="all">Todos</option>
+      <option value="active">Activo</option>
+      <option value="paused">Pausado</option>
+      <option value="done">Completado</option>
+    </select>
+  </div>
+  <div style="margin-left:auto;display:flex;gap:16px;align-items:center;padding-left:16px;">
+    <button class="btn-new" id="btn-expand" onclick="toggleAll()">+ Expandir</button>
+    <button class="btn-new" onclick="toggleCatPanel()">+ Categoría</button>
+    <button class="btn-new" onclick="openModal()">+ Nuevo</button>
+  </div>
+</div>
+
+<div class="grid" id="grid"><div class="card" id="card-1dd3jezd" draggable="true" data-pid="1dd3jezd">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-1dd3jezd" onclick="toggleCard(&#39;1dd3jezd&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;1dd3jezd&#39;)">VALLE ESCONDIDO - MODIFICACIÓN DE LOTEO</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:25%"></div></div></div>
+        <div class="col-count">1/4</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;1dd3jezd&#39;)">20-03-2026 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;1dd3jezd&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;1dd3jezd&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;1dd3jezd&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina" selected="">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-th78a4gy" draggable="true" data-tid="th78a4gy" data-pid="1dd3jezd"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;1dd3jezd&#39;,&#39;th78a4gy&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;1dd3jezd&#39;,&#39;th78a4gy&#39;)">Sacar firma de KyV</span><span class="task-date " onclick="editTaskDate(event,&#39;1dd3jezd&#39;,&#39;th78a4gy&#39;)">20-03-2026</span><button class="tdel" onclick="delTask(&#39;1dd3jezd&#39;,&#39;th78a4gy&#39;)">×</button></div><div class="task-row" id="trow-0y88dey8" draggable="true" data-tid="0y88dey8" data-pid="1dd3jezd"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;1dd3jezd&#39;,&#39;0y88dey8&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;1dd3jezd&#39;,&#39;0y88dey8&#39;)">Ingresar expediente firmado</span><span class="task-date " onclick="editTaskDate(event,&#39;1dd3jezd&#39;,&#39;0y88dey8&#39;)">27-03-2026</span><button class="tdel" onclick="delTask(&#39;1dd3jezd&#39;,&#39;0y88dey8&#39;)">×</button></div><div class="task-row" id="trow-9hg4ge00" draggable="true" data-tid="9hg4ge00" data-pid="1dd3jezd"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;1dd3jezd&#39;,&#39;9hg4ge00&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;1dd3jezd&#39;,&#39;9hg4ge00&#39;)">Reunión con Bárbara Fernández por Lote 11B y Parque del Sol</span><span class="task-date " onclick="editTaskDate(event,&#39;1dd3jezd&#39;,&#39;9hg4ge00&#39;)">30-03-2026</span><button class="tdel" onclick="delTask(&#39;1dd3jezd&#39;,&#39;9hg4ge00&#39;)">×</button></div><div class="task-row" id="trow-61bcv168" draggable="true" data-tid="61bcv168" data-pid="1dd3jezd"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;1dd3jezd&#39;,&#39;61bcv168&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;1dd3jezd&#39;,&#39;61bcv168&#39;)">Sacar Firma de María Paz Serrano</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;1dd3jezd&#39;,&#39;61bcv168&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;1dd3jezd&#39;,&#39;61bcv168&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;1dd3jezd&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;1dd3jezd&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-vsvxf3x6" draggable="true" data-pid="vsvxf3x6">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-vsvxf3x6" onclick="toggleCard(&#39;vsvxf3x6&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;vsvxf3x6&#39;)">VALLE ESCONDIDO - CIERRE DE CALLES</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
+        <div class="col-count">0/2</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;vsvxf3x6&#39;)">26-03-2026 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;vsvxf3x6&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;vsvxf3x6&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;vsvxf3x6&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina" selected="">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-ukkxcgpq" draggable="true" data-tid="ukkxcgpq" data-pid="vsvxf3x6"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;vsvxf3x6&#39;,&#39;ukkxcgpq&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;vsvxf3x6&#39;,&#39;ukkxcgpq&#39;)">Levantamiento de Caseta</span><span class="task-date " onclick="editTaskDate(event,&#39;vsvxf3x6&#39;,&#39;ukkxcgpq&#39;)">26-03-2026</span><button class="tdel" onclick="delTask(&#39;vsvxf3x6&#39;,&#39;ukkxcgpq&#39;)">×</button></div><div class="task-row" id="trow-31h1ugga" draggable="true" data-tid="31h1ugga" data-pid="vsvxf3x6"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;vsvxf3x6&#39;,&#39;31h1ugga&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;vsvxf3x6&#39;,&#39;31h1ugga&#39;)">Solicitar procedimiento de aprobación a Espacio Público</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;vsvxf3x6&#39;,&#39;31h1ugga&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;vsvxf3x6&#39;,&#39;31h1ugga&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;vsvxf3x6&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;vsvxf3x6&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-y21r7dpg" draggable="true" data-pid="y21r7dpg">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-y21r7dpg" onclick="toggleCard(&#39;y21r7dpg&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;y21r7dpg&#39;)">AZÓCAR - DIVISIÓN AFECTA</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:50%"></div></div></div>
+        <div class="col-count">1/2</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;y21r7dpg&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;y21r7dpg&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;y21r7dpg&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;y21r7dpg&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina" selected="">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-oqgdan6n" draggable="true" data-tid="oqgdan6n" data-pid="y21r7dpg"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">Solucionar deslindes con lotes 25 y 26</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">×</button></div><div class="task-row" id="trow-o5famo6o" draggable="true" data-tid="o5famo6o" data-pid="y21r7dpg"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">Definir estrategia de avance y respuesta de observaciones con abogados</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;y21r7dpg&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;y21r7dpg&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-8jhdm1gv" draggable="true" data-pid="8jhdm1gv">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-8jhdm1gv" onclick="toggleCard(&#39;8jhdm1gv&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;8jhdm1gv&#39;)">LOTE 14 - ANTEPROYECTO</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:60%"></div></div></div>
+        <div class="col-count">3/5</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;8jhdm1gv&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;8jhdm1gv&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;8jhdm1gv&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;8jhdm1gv&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina" selected="">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-zc6s1pwu" draggable="true" data-tid="zc6s1pwu" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">Reingreso de Anteproyecto</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">×</button></div><div class="task-row" id="trow-9qo8rh8z" draggable="true" data-tid="9qo8rh8z" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">Seguimiento a Certificado DGAC</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">×</button></div><div class="task-row" id="trow-hpg1oow0" draggable="true" data-tid="hpg1oow0" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">Pagar certificado de la DGAC para que se inicie trámite</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">×</button></div><div class="task-row" id="trow-q9iwq71w" draggable="true" data-tid="q9iwq71w" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">Armar polígono en GoogleEarth para solicitud</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">×</button></div><div class="task-row" id="trow-af4hey8d" draggable="true" data-tid="af4hey8d" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">Llenar formulario DGAC para solicitud de certificado</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;8jhdm1gv&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;8jhdm1gv&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-feu4mszx" draggable="true" data-pid="feu4mszx">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-feu4mszx" onclick="toggleCard(&#39;feu4mszx&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;feu4mszx&#39;)">SAN DAMIÁN - SUBDIVISIÓN</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
+        <div class="col-count">0/1</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;feu4mszx&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;feu4mszx&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;feu4mszx&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;feu4mszx&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina" selected="">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-ue28c6lb" draggable="true" data-tid="ue28c6lb" data-pid="feu4mszx"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">Solicitar reunión con Directora de Obras</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;feu4mszx&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;feu4mszx&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-rmsi6knu" draggable="true" data-pid="rmsi6knu">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-rmsi6knu" onclick="toggleCard(&#39;rmsi6knu&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;rmsi6knu&#39;)">WILCKENS - SUBDIVISIÓN HIJUELA A</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
+        <div class="col-count">0/2</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;rmsi6knu&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;rmsi6knu&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;rmsi6knu&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;rmsi6knu&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina" selected="">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-2ty2sc6i" draggable="true" data-tid="2ty2sc6i" data-pid="rmsi6knu"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;rmsi6knu&#39;,&#39;2ty2sc6i&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;rmsi6knu&#39;,&#39;2ty2sc6i&#39;)">Recopilación de antecedentes CBR y expropiaciones</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;rmsi6knu&#39;,&#39;2ty2sc6i&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;rmsi6knu&#39;,&#39;2ty2sc6i&#39;)">×</button></div><div class="task-row" id="trow-znh3a1x6" draggable="true" data-tid="znh3a1x6" data-pid="rmsi6knu"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;rmsi6knu&#39;,&#39;znh3a1x6&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;rmsi6knu&#39;,&#39;znh3a1x6&#39;)">Hacer excel con superficies de plano</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;rmsi6knu&#39;,&#39;znh3a1x6&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;rmsi6knu&#39;,&#39;znh3a1x6&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;rmsi6knu&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;rmsi6knu&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-w3rxvjzv" draggable="true" data-pid="w3rxvjzv">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-w3rxvjzv" onclick="toggleCard(&#39;w3rxvjzv&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;w3rxvjzv&#39;)">BROWN - LAS CAMPIÑAS</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
+        <div class="col-count">0/8</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;w3rxvjzv&#39;)">27-03-2026 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;w3rxvjzv&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;w3rxvjzv&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;w3rxvjzv&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina">Oficina</option><option value="Personal">Personal</option><option value="Externos" selected="">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-9h75h8bm" draggable="true" data-tid="9h75h8bm" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;9h75h8bm&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;9h75h8bm&#39;)">Ingreso de expediente de Recepción Final</span><span class="task-date " onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;9h75h8bm&#39;)">27-03-2026</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;9h75h8bm&#39;)">×</button></div><div class="task-row" id="trow-zp1vham2" draggable="true" data-tid="zp1vham2" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;zp1vham2&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;zp1vham2&#39;)">Formulario de Solicitud de Recepción Final</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;zp1vham2&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;zp1vham2&#39;)">×</button></div><div class="task-row" id="trow-ij27b20o" draggable="true" data-tid="ij27b20o" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;ij27b20o&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;ij27b20o&#39;)">Informe de Medidas de Gestión y Control</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;ij27b20o&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;ij27b20o&#39;)">×</button></div><div class="task-row" id="trow-wkpx4ldc" draggable="true" data-tid="wkpx4ldc" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;wkpx4ldc&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;wkpx4ldc&#39;)">Certificado Sanitario de Agua y Alcantarillado</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;wkpx4ldc&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;wkpx4ldc&#39;)">×</button></div><div class="task-row" id="trow-9acf3jbw" draggable="true" data-tid="9acf3jbw" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;9acf3jbw&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;9acf3jbw&#39;)">Certificado Eléctrico</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;9acf3jbw&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;9acf3jbw&#39;)">×</button></div><div class="task-row" id="trow-thi1u0fp" draggable="true" data-tid="thi1u0fp" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;thi1u0fp&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;thi1u0fp&#39;)">Libro de obras</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;thi1u0fp&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;thi1u0fp&#39;)">×</button></div><div class="task-row" id="trow-74tsw2zm" draggable="true" data-tid="74tsw2zm" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;74tsw2zm&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;74tsw2zm&#39;)">Declaración de No Cambios de Proyecto</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;74tsw2zm&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;74tsw2zm&#39;)">×</button></div><div class="task-row" id="trow-ip6b4ksh" draggable="true" data-tid="ip6b4ksh" data-pid="w3rxvjzv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;w3rxvjzv&#39;,&#39;ip6b4ksh&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;w3rxvjzv&#39;,&#39;ip6b4ksh&#39;)">Comprobante de Pago por Ley de Aportes</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;w3rxvjzv&#39;,&#39;ip6b4ksh&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;w3rxvjzv&#39;,&#39;ip6b4ksh&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;w3rxvjzv&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;w3rxvjzv&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-fih66qra" draggable="true" data-pid="fih66qra">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-fih66qra" onclick="toggleCard(&#39;fih66qra&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;fih66qra&#39;)">PERSONAL</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:33%"></div></div></div>
+        <div class="col-count">1/3</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;fih66qra&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high">↑ Alta</option>
+          <option value="low" selected="">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina">Oficina</option><option value="Personal" selected="">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-4thjc31q" draggable="true" data-tid="4thjc31q" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;fih66qra&#39;,&#39;4thjc31q&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">Renovar permiso de conducir</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">×</button></div><div class="task-row" id="trow-0sc7wbtn" draggable="true" data-tid="0sc7wbtn" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">Hacer excel y análisis de ingresos</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">×</button></div><div class="task-row" id="trow-6apo0ymg" draggable="true" data-tid="6apo0ymg" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">Lavar Bicicleta</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;fih66qra&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;fih66qra&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div><div class="card" id="card-zbcyusvj" draggable="true" data-pid="zbcyusvj">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-zbcyusvj" onclick="toggleCard(&#39;zbcyusvj&#39;,event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;zbcyusvj&#39;)">4LIFE - SEGUROS</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:100%"></div></div></div>
+        <div class="col-count">4/4</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;zbcyusvj&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <select class="psel" onchange="chPrio(&#39;zbcyusvj&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="high" selected="">↑ Alta</option>
+          <option value="low">↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus(&#39;zbcyusvj&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done" selected="">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;zbcyusvj&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina" selected="">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-wp2cr0di" draggable="true" data-tid="wp2cr0di" data-pid="zbcyusvj"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;zbcyusvj&#39;,&#39;wp2cr0di&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;zbcyusvj&#39;,&#39;wp2cr0di&#39;)">Desarchivo de expedientes</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;zbcyusvj&#39;,&#39;wp2cr0di&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;zbcyusvj&#39;,&#39;wp2cr0di&#39;)">×</button></div><div class="task-row" id="trow-a0tcgf1m" draggable="true" data-tid="a0tcgf1m" data-pid="zbcyusvj"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;zbcyusvj&#39;,&#39;a0tcgf1m&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;zbcyusvj&#39;,&#39;a0tcgf1m&#39;)">Elaborar informe</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;zbcyusvj&#39;,&#39;a0tcgf1m&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;zbcyusvj&#39;,&#39;a0tcgf1m&#39;)">×</button></div><div class="task-row" id="trow-kc0cd2bz" draggable="true" data-tid="kc0cd2bz" data-pid="zbcyusvj"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;zbcyusvj&#39;,&#39;kc0cd2bz&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;zbcyusvj&#39;,&#39;kc0cd2bz&#39;)">Presentar Informe</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;zbcyusvj&#39;,&#39;kc0cd2bz&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;zbcyusvj&#39;,&#39;kc0cd2bz&#39;)">×</button></div><div class="task-row" id="trow-oxih8m9q" draggable="true" data-tid="oxih8m9q" data-pid="zbcyusvj"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;zbcyusvj&#39;,&#39;oxih8m9q&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;zbcyusvj&#39;,&#39;oxih8m9q&#39;)">Entrega de Informe</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;zbcyusvj&#39;,&#39;oxih8m9q&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;zbcyusvj&#39;,&#39;oxih8m9q&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;zbcyusvj&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;zbcyusvj&#39;)">− Eliminar</button>
+        </div>
+      </div>
+    </div></div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-title">Nuevo proyecto</div>
+    <div class="field"><label>Nombre</label><input type="text" id="mn" placeholder="Ej: Rediseño web"></div>
+    <div class="field-row">
+      <div class="field"><label>Categoría</label><select id="mcat"><option value="Oficina">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option></select></div>
+      <div class="field"><label>Estado</label>
+        <select id="ms"><option value="active">Activo</option><option value="paused">Pausado</option><option value="done">Completado</option></select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Prioridad</label>
+        <select id="mp"><option value="high" selected="">Alta</option><option value="low">Baja</option></select>
+      </div>
+      <div class="field"><label>Fecha límite</label><input type="date" id="md"></div>
+    </div>
+    <div class="cat-manager">
+      <label style="font-size:10px;color:var(--text-tertiary);letter-spacing:0.04em;">Gestionar categorías</label>
+      <div class="cat-list" id="cat-chips"><div class="cat-chip"><span class="cat-chip-name" onclick="startRename(&#39;Oficina&#39;,this)">Oficina</span><button class="cat-chip-del" onclick="deleteCat(&#39;Oficina&#39;)">×</button></div><div class="cat-chip"><span class="cat-chip-name" onclick="startRename(&#39;Personal&#39;,this)">Personal</span><button class="cat-chip-del" onclick="deleteCat(&#39;Personal&#39;)">×</button></div><div class="cat-chip"><span class="cat-chip-name" onclick="startRename(&#39;Externos&#39;,this)">Externos</span><button class="cat-chip-del" onclick="deleteCat(&#39;Externos&#39;)">×</button></div></div>
+      <div class="cat-add-row">
+        <input type="text" id="new-cat" placeholder="Nueva categoría..." onkeydown="if(event.key===&#39;Enter&#39;)addCat()">
+        <button onclick="addCat()">+ agregar</button>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button onclick="closeModal()">cancelar</button>
+      <button class="confirm" onclick="create()">crear</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPA_URL = 'https://sytdliahcbqhkymxwidz.supabase.co';
+const SUPA_KEY = 'sb_publishable_ooitirO9Tjx9BysQknVNEg_d2XMHUPV';
+
+const headers = {
+  'Content-Type': 'application/json',
+  'apikey': SUPA_KEY,
+  'Authorization': `Bearer ${SUPA_KEY}`,
+  'Prefer': 'return=representation'
+};
+
+const api = async (path, method='GET', body=null) => {
+  const opts = { method, headers: {...headers} };
+  if(body) opts.body = JSON.stringify(body);
+  const r = await fetch(SUPA_URL + '/rest/v1/' + path, opts);
+  if(!r.ok) { const e = await r.text(); throw new Error(e); }
+  if(r.status === 204) return null;
+  return r.json();
+};
+
+const uid = () => Math.random().toString(36).slice(2,10);
+let ps = [], cats = [];
+let fs = {s:'all', p:'all', c:'all'};
+
+function sortTasks(tasks) {
+  return tasks.sort((a, b) => {
+    if(a.done !== b.done) return a.done - b.done;
+    if(!a.done) {
+      if(a.dl && b.dl) return a.dl < b.dl ? -1 : a.dl > b.dl ? 1 : 0;
+      if(a.dl) return -1;
+      if(b.dl) return 1;
+    }
+    return 0;
+  });
+}
+
+function setSyncDot(state) {
+  const d = document.getElementById('sync-dot');
+  d.className = 'sync-dot ' + state;
+}
+
+async function loadAll() {
+  setSyncDot('loading');
+  try {
+    const [projects, tasks, categories, settings] = await Promise.all([
+      api('projects?select=*&order=position.asc'),
+      api('tasks?select=*&order=position.asc'),
+      api('categories?select=*'),
+      api('settings?select=*')
+    ]);
+    // título del dashboard
+    const titleSetting = settings.find(s => s.key === 'dashboard_title');
+    if(titleSetting) document.getElementById('dash-title').textContent = titleSetting.value;
+    cats = categories.map(c => c.name);
+    ps = projects.map(p => ({
+      ...p,
+      tasks: sortTasks(tasks.filter(t => t.project_id === p.id)
+        .sort((a,b) => a.position - b.position)
+        .map(t => ({ id: t.id, text: t.text, done: t.done, dl: t.dl||null })))
+    }));
+    setSyncDot('ok');
+    renderCatChips();
+    renderCatFilters();
+    render();
+  } catch(e) {
+    setSyncDot('err');
+    console.error(e);
+    document.getElementById('grid').innerHTML = '<div class="empty">Error conectando a la base de datos. Verifica tu conexión a internet.</div>';
+  }
+}
+
+const pct = tasks => tasks.length ? Math.round(tasks.filter(t=>t.done).length/tasks.length*100) : 0;
+
+function dlInfo(s) {
+  if(!s) return null;
+  const d = new Date(s+'T00:00:00');
+  return `${String(d.getDate()).padStart(2,'0')}-${String(d.getMonth()+1).padStart(2,'0')}-${d.getFullYear()}`;
+}
+
+function setFSel(type, val) { fs[type] = val; render(); }
+
+function renderCatFilters() {
+  const el = document.getElementById('f-cat');
+  if(!el) return;
+  el.innerHTML = [['all','Todas'],...cats.map(c=>[c,c[0].toUpperCase()+c.slice(1)])].map(([v,l])=>
+    `<option value="${v}" ${fs.c===v?'selected':''}>${l}</option>`).join('');
+  el.value = fs.c;
+}
+
+function catChipHTML(c) {
+  return `<div class="cat-chip"><span class="cat-chip-name" onclick="startRename('${c}',this)">${c}</span><button class="cat-chip-del" onclick="deleteCat('${c}')">×</button></div>`;
+}
+
+function renderCatChips() {
+  const chips = document.getElementById('cat-chips');
+  if(chips) chips.innerHTML = cats.map(c=>catChipHTML(c)).join('');
+  const m = document.getElementById('cat-chips-main');
+  if(m) m.innerHTML = cats.map(c=>catChipHTML(c)).join('');
+  const sel = document.getElementById('mcat');
+  if(sel) sel.innerHTML = cats.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+
+async function startRename(c, el) {
+  const inp = document.createElement('input');
+  inp.className = 'cat-chip-input';
+  inp.value = c;
+  inp.style.width = Math.max(50, c.length*9)+'px';
+  el.replaceWith(inp);
+  inp.focus(); inp.select();
+  const commit = async () => {
+    const v = inp.value.trim();
+    if(v && v !== c && !cats.includes(v)) {
+      setSyncDot('loading');
+      try {
+        await api(`categories?name=eq.${encodeURIComponent(c)}`, 'DELETE');
+        await api('categories', 'POST', {name: v});
+        for(const p of ps.filter(p=>p.cat===c)) {
+          await api(`projects?id=eq.${p.id}`, 'PATCH', {cat: v});
+        }
+        setSyncDot('ok');
+        await loadAll();
+      } catch(e) { setSyncDot('err'); renderCatChips(); }
+    } else { renderCatChips(); }
+  };
+  inp.addEventListener('blur', commit);
+  inp.addEventListener('keydown', e => {
+    if(e.key==='Enter') inp.blur();
+    if(e.key==='Escape') { inp.value=c; inp.blur(); }
+  });
+}
+
+async function addCat() {
+  const inp = document.getElementById('new-cat');
+  const v = inp.value.trim();
+  if(!v || cats.includes(v)) { inp.value=''; return; }
+  setSyncDot('loading');
+  try { await api('categories', 'POST', {name: v}); inp.value=''; setSyncDot('ok'); await loadAll(); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function addCatMain() {
+  const inp = document.getElementById('new-cat-main');
+  const v = inp.value.trim();
+  if(!v || cats.includes(v)) { inp.value=''; return; }
+  setSyncDot('loading');
+  try { await api('categories', 'POST', {name: v}); inp.value=''; setSyncDot('ok'); await loadAll(); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function deleteCat(c) {
+  if(cats.length <= 1) return;
+  setSyncDot('loading');
+  try {
+    await api(`categories?name=eq.${encodeURIComponent(c)}`, 'DELETE');
+    if(fs.c === c) fs.c = 'all';
+    setSyncDot('ok'); await loadAll();
+  } catch(e) { setSyncDot('err'); }
+}
+
+function toggleCatPanel() {
+  const p = document.getElementById('cat-panel');
+  const h = p.style.display === 'none';
+  p.style.display = h ? 'block' : 'none';
+  if(h) renderCatChips();
+}
+
+function render() {
+  renderCatFilters();
+  const grid = document.getElementById('grid');
+  const openIds = new Set([...document.querySelectorAll('.card.open')].map(el=>el.id.replace('card-','')));
+  const tot = ps.length, act = ps.filter(p=>p.status==='active').length;
+  const totalTasks = ps.reduce((acc,p)=>acc+p.tasks.length,0), doneTasks = ps.reduce((acc,p)=>acc+p.tasks.filter(t=>t.done).length,0);
+  document.getElementById('sub').textContent = `${tot} proyecto${tot!==1?'s':''} · ${act} activo${act!==1?'s':''} · ${doneTasks}/${totalTasks} tarea${totalTasks!==1?'s':''}`;
+  const vis = ps.filter(p=>(fs.s==='all'||p.status===fs.s)&&(fs.p==='all'||p.prio===fs.p)&&(fs.c==='all'||p.cat===fs.c));
+  if(!vis.length) { grid.innerHTML='<div class="empty">Sin resultados.</div>'; return; }
+  grid.innerHTML = vis.map(p => {
+    const pc = pct(p.tasks), dl = dlInfo(p.dl);
+    const tasks = p.tasks.map(t=>`<div class="task-row" id="trow-${t.id}" draggable="true" data-tid="${t.id}" data-pid="${p.id}"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb ${t.done?'on':''}" onclick="toggle('${p.id}','${t.id}')"></div><span class="task-t ${t.done?'done':''}" onclick="renameTask(event,'${p.id}','${t.id}')">${t.text}</span><span class="task-date ${t.dl?'':'no-date'}" onclick="editTaskDate(event,'${p.id}','${t.id}')">${t.dl?fmtDate(t.dl):'+ fecha'}</span><button class="tdel" onclick="delTask('${p.id}','${t.id}')">×</button></div>`).join('');
+    return `<div class="card" id="card-${p.id}" draggable="true" data-pid="${p.id}">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-${p.id}" onclick="toggleCard('${p.id}',event)">+</button>
+        <div class="card-name" onclick="startRenameProject(event,'${p.id}')">${p.name}</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:${pc}%"></div></div></div>
+        <div class="col-count">${p.tasks.filter(t=>t.done).length}/${p.tasks.length}</div>
+        <span class="meta-date" onclick="startEditDate(event,'${p.id}')">${dl||nearestTaskDate(p)||'+ fecha'} <svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:-1px;opacity:0.5'><rect x='3' y='4' width='18' height='18' rx='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/></svg></span>
+        <select class="psel" onchange="chPrio('${p.id}',this.value)" onclick="event.stopPropagation()">
+          <option value="high" ${p.prio==='high'?'selected':''}>↑ Alta</option>
+          <option value="low" ${p.prio==='low'?'selected':''}>↓ Baja</option>
+        </select>
+        <select class="ssel" onchange="chStatus('${p.id}',this.value)" onclick="event.stopPropagation()">
+          <option value="active" ${p.status==='active'?'selected':''}>Activo</option>
+          <option value="paused" ${p.status==='paused'?'selected':''}>Pausado</option>
+          <option value="done" ${p.status==='done'?'selected':''}>Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat('${p.id}',this.value)" onclick="event.stopPropagation()">
+          ${cats.map(c=>`<option value="${c}" ${p.cat===c?'selected':''}>${c[0].toUpperCase()+c.slice(1)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks">${tasks}</div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key==='Enter')addTask('${p.id}',this)"/>
+          <button class="fdel" onclick="delProject('${p.id}')">− Eliminar</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  openIds.forEach(pid => {
+    const card = document.getElementById('card-'+pid);
+    if(card) { card.classList.add('open'); const btn=document.getElementById('tog-'+pid); if(btn) btn.textContent='−'; }
+  });
+}
+
+function toggleCard(pid, e) {
+  e.stopPropagation();
+  const card = document.getElementById('card-'+pid);
+  card.classList.toggle('open');
+  const btn = document.getElementById('tog-'+pid);
+  if(btn) btn.textContent = card.classList.contains('open') ? '−' : '+';
+}
+
+function startEditDate(e, pid) {
+  const el = e.currentTarget;
+  const p = ps.find(x=>x.id===pid);
+  const inp = document.createElement('input');
+  inp.type='date'; inp.className='meta-date-input'; inp.value=p.dl||'';
+  el.replaceWith(inp); inp.focus(); inp.showPicker&&inp.showPicker();
+  let committed = false;
+  const commit = async () => {
+    if(committed) return; committed=true;
+    p.dl = inp.value||null;
+    const newSpan = document.createElement('span');
+    newSpan.className='meta-date';
+    newSpan.onclick=(ev)=>startEditDate(ev,pid);
+    newSpan.textContent=dlInfo(p.dl)||'+ fecha';
+    inp.replaceWith(newSpan);
+    setSyncDot('loading');
+    try { await api(`projects?id=eq.${pid}`, 'PATCH', {dl: p.dl}); setSyncDot('ok'); }
+    catch(e) { setSyncDot('err'); }
+  };
+  inp.addEventListener('change', ()=>{inp.blur();});
+  inp.addEventListener('blur', commit);
+}
+
+function startRenameProject(e, pid) {
+  const el = e.currentTarget;
+  el.contentEditable='true'; el.style.whiteSpace='normal'; el.style.overflow='visible'; el.focus();
+  const range = document.createRange(); range.selectNodeContents(el); range.collapse(false);
+  const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+  const commit = async () => {
+    el.contentEditable='false'; el.style.whiteSpace='nowrap'; el.style.overflow='hidden';
+    const v = el.textContent.trim();
+    if(v) {
+      const p = ps.find(x=>x.id===pid);
+      if(p && p.name !== v) {
+        p.name = v;
+        setSyncDot('loading');
+        try { await api(`projects?id=eq.${pid}`, 'PATCH', {name: v}); setSyncDot('ok'); }
+        catch(e) { setSyncDot('err'); }
+      }
+    } else { const p=ps.find(x=>x.id===pid); if(p) el.textContent=p.name; }
+  };
+  el.addEventListener('blur', commit, {once:true});
+  el.addEventListener('keydown', e=>{ if(e.key==='Enter'){e.preventDefault();el.blur();} if(e.key==='Escape'){el.textContent=ps.find(x=>x.id===pid)?.name||'';el.blur();} });
+}
+
+function renameTask(e, pid, tid) {
+  e.stopPropagation();
+  const el = e.currentTarget;
+  if(el.contentEditable==='true') return;
+  const p = ps.find(x=>x.id===pid);
+  const t = p.tasks.find(x=>x.id===tid);
+  el.contentEditable='true'; el.focus();
+  const range=document.createRange(); range.selectNodeContents(el); range.collapse(false);
+  const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+  const commit = async () => {
+    el.contentEditable='false';
+    const v = el.textContent.trim();
+    if(v && v !== t.text) {
+      t.text = v;
+      setSyncDot('loading');
+      try { await api(`tasks?id=eq.${tid}`, 'PATCH', {text: v}); setSyncDot('ok'); }
+      catch(e) { setSyncDot('err'); }
+    } else { el.textContent = t.text; }
+  };
+  el.addEventListener('blur', commit, {once:true});
+  el.addEventListener('keydown', ev=>{ if(ev.key==='Enter'){ev.preventDefault();el.blur();} if(ev.key==='Escape'){el.textContent=t.text;el.blur();} });
+}
+
+async function toggle(pid, tid) {
+  const p = ps.find(x=>x.id===pid);
+  const t = p.tasks.find(x=>x.id===tid);
+  t.done ^= 1;
+  sortTasks(p.tasks);
+  render();
+  setSyncDot('loading');
+  try { await api(`tasks?id=eq.${tid}`, 'PATCH', {done: !!t.done}); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function delTask(pid, tid) {
+  const p = ps.find(x=>x.id===pid);
+  p.tasks = p.tasks.filter(x=>x.id!==tid);
+  render();
+  setSyncDot('loading');
+  try { await api(`tasks?id=eq.${tid}`, 'DELETE'); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function addTask(pid, inp) {
+  const v = inp.value.trim();
+  if(!v) return;
+  const p = ps.find(x=>x.id===pid);
+  const id = uid();
+  const pos = p.tasks.length;
+  p.tasks.push({id, text:v, done:false, dl:null});
+  inp.value = '';
+  render();
+  setSyncDot('loading');
+  try { await api('tasks', 'POST', {id, project_id:pid, text:v, done:false, position:pos}); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function chStatus(pid, s) {
+  ps.find(x=>x.id===pid).status = s; render();
+  setSyncDot('loading');
+  try { await api(`projects?id=eq.${pid}`, 'PATCH', {status: s}); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function chPrio(pid, p) {
+  ps.find(x=>x.id===pid).prio = p; render();
+  setSyncDot('loading');
+  try { await api(`projects?id=eq.${pid}`, 'PATCH', {prio: p}); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function chCat(pid, c) {
+  ps.find(x=>x.id===pid).cat = c; render();
+  setSyncDot('loading');
+  try { await api(`projects?id=eq.${pid}`, 'PATCH', {cat: c}); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+async function delProject(pid) {
+  if(!confirm('¿Eliminar este proyecto?')) return;
+  ps = ps.filter(x=>x.id!==pid); render();
+  setSyncDot('loading');
+  try { await api(`projects?id=eq.${pid}`, 'DELETE'); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+function openModal() { renderCatChips(); document.getElementById('overlay').classList.add('open'); document.getElementById('mn').focus(); }
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  ['mn','md'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mp').value='high'; document.getElementById('ms').value='active';
+}
+
+async function create() {
+  const name = document.getElementById('mn').value.trim();
+  if(!name) return;
+  const id = uid();
+  const newP = { id, name, cat: document.getElementById('mcat').value, status: document.getElementById('ms').value, prio: document.getElementById('mp').value, dl: document.getElementById('md').value||null, tasks: [] };
+  ps.push(newP);
+  closeModal(); render();
+  setSyncDot('loading');
+  try { await api('projects', 'POST', {id, name:newP.name, cat:newP.cat, status:newP.status, prio:newP.prio, dl:newP.dl}); setSyncDot('ok'); }
+  catch(e) { setSyncDot('err'); }
+}
+
+// ── Helpers de fecha ───────────────────────────────────────────────
+function fmtDate(s) {
+  if(!s) return '';
+  const d = new Date(s+'T00:00:00');
+  return `${String(d.getDate()).padStart(2,'0')}-${String(d.getMonth()+1).padStart(2,'0')}-${d.getFullYear()}`;
+}
+
+function nearestTaskDate(p) {
+  const dates = p.tasks.filter(t=>!t.done && t.dl).map(t=>t.dl).sort();
+  return dates.length ? fmtDate(dates[0]) : null;
+}
+
+// ── Título editable ────────────────────────────────────────────────
+function startRenameTitle(e) {
+  const el = e.currentTarget;
+  if(el.contentEditable==='true') return;
+  const prev = el.textContent;
+  el.contentEditable='true'; el.focus();
+  const range=document.createRange(); range.selectNodeContents(el); range.collapse(false);
+  window.getSelection().removeAllRanges(); window.getSelection().addRange(range);
+  const commit = async () => {
+    el.contentEditable='false';
+    const v = el.textContent.trim();
+    if(!v) { el.textContent = prev; return; }
+    if(v === prev) return;
+    setSyncDot('loading');
+    try {
+      await api('settings?key=eq.dashboard_title', 'PATCH', {value: v});
+      setSyncDot('ok');
+    } catch(e) { setSyncDot('err'); el.textContent = prev; }
+  };
+  el.addEventListener('blur', commit, {once:true});
+  el.addEventListener('keydown', ev=>{ if(ev.key==='Enter'){ev.preventDefault();el.blur();} if(ev.key==='Escape'){el.textContent=prev;el.blur();} });
+}
+
+// ── Fecha de tarea ─────────────────────────────────────────────────
+function editTaskDate(e, pid, tid) {
+  e.stopPropagation();
+  const el = e.currentTarget;
+  const p = ps.find(x=>x.id===pid);
+  const t = p.tasks.find(x=>x.id===tid);
+  const inp = document.createElement('input');
+  inp.type='date'; inp.className='task-date-input'; inp.value=t.dl||'';
+  el.replaceWith(inp); inp.focus(); inp.showPicker&&inp.showPicker();
+  let committed=false;
+  const commit = async () => {
+    if(committed) return; committed=true;
+    t.dl = inp.value||null;
+    sortTasks(p.tasks);
+    render();
+    setSyncDot('loading');
+    try {
+      await api(`tasks?id=eq.${tid}`, 'PATCH', {dl: t.dl});
+      await Promise.all(p.tasks.map((t,i)=>api(`tasks?id=eq.${t.id}`,'PATCH',{position:i})));
+      setSyncDot('ok');
+    }
+    catch(e){ setSyncDot('err'); }
+  };
+  inp.addEventListener('change', ()=>inp.blur());
+  inp.addEventListener('blur', commit);
+}
+
+// ── Drag & drop — Tareas ───────────────────────────────────────────
+let dragTask = null;
+
+document.addEventListener('dragstart', e => {
+  const row = e.target.closest('.task-row');
+  if(row) { dragTask={tid:row.dataset.tid, pid:row.dataset.pid}; row.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; return; }
+  const card = e.target.closest('.card[data-pid]');
+  if(card) { dragProj=card.dataset.pid; card.classList.add('proj-dragging'); e.dataTransfer.effectAllowed='move'; }
+});
+
+document.addEventListener('dragend', e => {
+  document.querySelectorAll('.task-row.dragging,.task-row.drag-over').forEach(el=>el.classList.remove('dragging','drag-over'));
+  document.querySelectorAll('.card.proj-dragging,.card.proj-drag-over-top,.card.proj-drag-over-bot').forEach(el=>el.classList.remove('proj-dragging','proj-drag-over-top','proj-drag-over-bot'));
+  dragTask=null; dragProj=null;
+});
+
+document.addEventListener('dragover', e => {
+  e.preventDefault();
+  // tasks
+  const row = e.target.closest('.task-row');
+  if(row && dragTask) {
+    document.querySelectorAll('.task-row.drag-over').forEach(el=>el.classList.remove('drag-over'));
+    if(row.dataset.tid !== dragTask.tid) row.classList.add('drag-over');
+    return;
+  }
+  // projects
+  const card = e.target.closest('.card[data-pid]');
+  if(card && dragProj && card.dataset.pid !== dragProj) {
+    document.querySelectorAll('.card.proj-drag-over-top,.card.proj-drag-over-bot').forEach(el=>el.classList.remove('proj-drag-over-top','proj-drag-over-bot'));
+    const rect=card.getBoundingClientRect();
+    card.classList.add(e.clientY < rect.top+rect.height/2 ? 'proj-drag-over-top':'proj-drag-over-bot');
+  }
+});
+
+document.addEventListener('drop', async e => {
+  e.preventDefault();
+  // drop tarea
+  const row = e.target.closest('.task-row');
+  if(row && dragTask && row.dataset.tid !== dragTask.tid && row.dataset.pid === dragTask.pid) {
+    const p = ps.find(x=>x.id===dragTask.pid);
+    const fromIdx = p.tasks.findIndex(t=>t.id===dragTask.tid);
+    const toIdx   = p.tasks.findIndex(t=>t.id===row.dataset.tid);
+    const [moved] = p.tasks.splice(fromIdx,1);
+    p.tasks.splice(toIdx,0,moved);
+    render();
+    // actualizar posiciones en bd
+    setSyncDot('loading');
+    try {
+      await Promise.all(p.tasks.map((t,i)=>api(`tasks?id=eq.${t.id}`,'PATCH',{position:i})));
+      setSyncDot('ok');
+    } catch(e){ setSyncDot('err'); }
+    return;
+  }
+  // drop proyecto
+  const card = e.target.closest('.card[data-pid]');
+  if(card && dragProj && card.dataset.pid !== dragProj) {
+    const fromIdx = ps.findIndex(x=>x.id===dragProj);
+    const toIdx   = ps.findIndex(x=>x.id===card.dataset.pid);
+    const rect=card.getBoundingClientRect();
+    const insertAfter = e.clientY >= rect.top+rect.height/2;
+    const [moved] = ps.splice(fromIdx,1);
+    const finalIdx = ps.findIndex(x=>x.id===card.dataset.pid);
+    ps.splice(insertAfter ? finalIdx+1 : finalIdx, 0, moved);
+    render();
+    // actualizar posición proyectos en bd (si la tabla tiene columna position)
+    setSyncDot('loading');
+    try {
+      await Promise.all(ps.map((p,i)=>api(`projects?id=eq.${p.id}`,'PATCH',{position:i})));
+      setSyncDot('ok');
+    } catch(er){ setSyncDot('err'); }
+  }
+});
+
+function toggleAll() {
+  const cards = document.querySelectorAll('.card');
+  const allOpen = [...cards].every(c => c.classList.contains('open'));
+  const btn = document.getElementById('btn-expand');
+  cards.forEach(card => {
+    const pid = card.id.replace('card-', '');
+    const btn2 = document.getElementById('tog-' + pid);
+    if(allOpen) {
+      card.classList.remove('open');
+      if(btn2) btn2.textContent = '+';
+    } else {
+      card.classList.add('open');
+      if(btn2) btn2.textContent = '−';
+    }
+  });
+  btn.textContent = allOpen ? '+ Expandir' : '− Colapsar';
+}
+
+document.getElementById('overlay').addEventListener('click', e=>{ if(e.target===document.getElementById('overlay')) closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+loadAll();
+</script>
+
+
+</body></html>
