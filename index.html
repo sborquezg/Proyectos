@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/sborq/Downloads/index_3.html -->
+<!-- saved from url=(0046)file:///C:/Users/sborq/Downloads/index_16.html -->
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,18 +40,18 @@
   .grid { display: flex; flex-direction: column; gap: 1px; border: 0.5px solid var(--border-secondary); border-radius: var(--radius); overflow: hidden; background: var(--border); }
   .card { background: var(--bg); }
   .card:hover { background: var(--bg-secondary); }
-  .card-main { display: grid; grid-template-columns: 16px 2fr 80px 28px 95px 50px 90px 75px; align-items: center; gap: 8px; padding: 0.75rem 1rem; }
+  .card-main { display: grid; grid-template-columns: 16px 2fr 110px 28px 105px 90px 75px; align-items: center; gap: 8px; padding: 0.75rem 1rem; }
   .card-name { font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); cursor: text; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: 0.02em; }
   .card-name:hover { border-bottom: 0.5px solid var(--border-secondary); }
   .card-name[contenteditable="true"] { outline: none; white-space: normal; overflow: visible; }
   .csel-card { font-size: 12px; color: var(--text-tertiary); border: 0.5px solid var(--border); border-radius: 2px; padding: 0 5px; background: transparent; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; text-align: center; text-align-last: center; height: 1.6em; line-height: 1.6; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .psel { font-size: 12px; background: transparent; border: none; color: var(--text-tertiary); cursor: pointer; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; text-align: center; height: 1.4em; padding: 0; line-height: 1.4; }
   .col-prog { display: flex; align-items: center; }
-  .prog-track { flex: 1; height: 1px; background: var(--border); }
-  .prog-fill { height: 100%; background: var(--text); transition: width 0.3s; }
+  .prog-track { flex: 1; height: 1px; background: var(--border); border-radius: 2px; }
+  .prog-fill { height: 100%; background: var(--text); transition: width 0.3s; border-radius: 2px; }
   .col-count { font-size: 12px; color: var(--text-tertiary); text-align: right; }
-  .meta-date { font-size: 12px; color: var(--text-tertiary); text-align: center; cursor: pointer; }
+  .meta-date { font-size: 12px; color: var(--text-tertiary); text-align: center; cursor: pointer; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .meta-date:hover { border-bottom: 0.5px solid var(--border-secondary); }
+  .meta-date svg { flex-shrink: 0; opacity: 0.5; }
   .meta-date-input { font-size: 12px; color: var(--text-tertiary); background: transparent; border: none; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; }
   .ssel { font-size: 12px; background: transparent; border: none; color: var(--text-tertiary); cursor: pointer; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; text-align: center; height: 1.4em; padding: 0; line-height: 1.4; }
   .col-toggle { font-size: 13px; color: var(--text-tertiary); background: none; border: none; cursor: pointer; font-family: var(--font); padding: 0; line-height: 1; }
@@ -128,7 +128,7 @@
   @media (max-width: 600px) {
     body { padding: 1.5rem 1rem 3rem; }
     .card-main { grid-template-columns: 16px 1fr 50px 24px; gap: 4px; }
-    .card-main .psel, .card-main .ssel, .card-main .csel-card, .card-main .meta-date { display: none; }
+    .card-main .ssel, .card-main .csel-card, .card-main .meta-date { display: none; }
     .task-t { font-size: 11px; }
     .task-date { font-size: 10px; min-width: 55px; }
     .card-name { font-size: 10px; }
@@ -149,8 +149,8 @@
 <body>
 
 <div class="topbar">
-  <div>
-    <div class="title"><span class="title-editable" id="dash-title" onclick="startRenameTitle(event)">PROGRAMACIÓN&nbsp; SB</span> <span class="sync-dot ok" id="sync-dot"></span></div>
+  <div style="width:100%; text-align:center;">
+    <div class="title"><span class="title-editable" id="dash-title" onclick="startRenameTitle(event)">PROGRAMACIÓN SB</span></div>
     <div class="subtitle" id="sub">9 proyectos · 8 activos · 10/31 tareas</div>
   </div>
 </div>
@@ -174,15 +174,7 @@
     <span class="fg-label">Categoría</span>
     <select id="f-cat" class="fsel" onchange="setFSel(&#39;c&#39;,this.value)"><option value="all" selected="">Todas</option><option value="Oficina">Oficina</option><option value="Personal">Personal</option><option value="Externos">Externos</option></select>
   </div>
-  <div style="width:0.5px;height:16px;background:var(--border-secondary);flex-shrink:0;"></div>
-  <div class="filter-row">
-    <span class="fg-label">Prioridad</span>
-    <select id="f-prio" class="fsel" onchange="setFSel(&#39;p&#39;,this.value)">
-      <option value="all">Todas</option>
-      <option value="high">Alta</option>
-      <option value="low">Baja</option>
-    </select>
-  </div>
+
   <div style="width:0.5px;height:16px;background:var(--border-secondary);flex-shrink:0;"></div>
   <div class="filter-row">
     <span class="fg-label">Estado</span>
@@ -194,23 +186,21 @@
     </select>
   </div>
   <div style="margin-left:auto;display:flex;gap:16px;align-items:center;padding-left:16px;">
-    <button class="btn-new" id="btn-expand" onclick="toggleAll()">+ Expandir</button>
+    <button class="btn-new" id="btn-expand" onclick="toggleAll()">− Colapsar</button>
     <button class="btn-new" onclick="toggleCatPanel()">+ Categoría</button>
     <button class="btn-new" onclick="openModal()">+ Nuevo</button>
+    <span class="sync-dot ok" id="sync-dot"></span>
   </div>
 </div>
 
-<div class="grid" id="grid"><div class="card" id="card-1dd3jezd" draggable="true" data-pid="1dd3jezd">
+<div class="grid" id="grid"><div class="card open" id="card-1dd3jezd" draggable="true" data-pid="1dd3jezd">
       <div class="card-main">
-        <button class="col-toggle" id="tog-1dd3jezd" onclick="toggleCard(&#39;1dd3jezd&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;1dd3jezd&#39;)">VALLE ESCONDIDO - MODIFICACIÓN DE LOTEO</div>
+        <button class="col-toggle" id="tog-1dd3jezd" onclick="toggleCard(&#39;1dd3jezd&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;1dd3jezd&#39;)">MODIFICACIÓN DE LOTEO VALLE ESCONDIDO</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:25%"></div></div></div>
         <div class="col-count">1/4</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;1dd3jezd&#39;)">20-03-2026 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;1dd3jezd&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;1dd3jezd&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>20-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;1dd3jezd&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active" selected="">Activo</option>
           <option value="paused">Pausado</option>
@@ -227,17 +217,14 @@
           <button class="fdel" onclick="delProject(&#39;1dd3jezd&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card" id="card-vsvxf3x6" draggable="true" data-pid="vsvxf3x6">
+    </div><div class="card open" id="card-vsvxf3x6" draggable="true" data-pid="vsvxf3x6">
       <div class="card-main">
-        <button class="col-toggle" id="tog-vsvxf3x6" onclick="toggleCard(&#39;vsvxf3x6&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;vsvxf3x6&#39;)">VALLE ESCONDIDO - CIERRE DE CALLES</div>
+        <button class="col-toggle" id="tog-vsvxf3x6" onclick="toggleCard(&#39;vsvxf3x6&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;vsvxf3x6&#39;)">CIERRE DE CALLES VALLE ESCONDIDO</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/2</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;vsvxf3x6&#39;)">26-03-2026 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;vsvxf3x6&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;vsvxf3x6&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>26-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;vsvxf3x6&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active" selected="">Activo</option>
           <option value="paused">Pausado</option>
@@ -254,17 +241,14 @@
           <button class="fdel" onclick="delProject(&#39;vsvxf3x6&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card" id="card-y21r7dpg" draggable="true" data-pid="y21r7dpg">
+    </div><div class="card open" id="card-y21r7dpg" draggable="true" data-pid="y21r7dpg">
       <div class="card-main">
-        <button class="col-toggle" id="tog-y21r7dpg" onclick="toggleCard(&#39;y21r7dpg&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;y21r7dpg&#39;)">AZÓCAR - DIVISIÓN AFECTA</div>
+        <button class="col-toggle" id="tog-y21r7dpg" onclick="toggleCard(&#39;y21r7dpg&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;y21r7dpg&#39;)">DIVISIÓN AFECTA AZÓCAR</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:50%"></div></div></div>
         <div class="col-count">1/2</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;y21r7dpg&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;y21r7dpg&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;y21r7dpg&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>27-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;y21r7dpg&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active" selected="">Activo</option>
           <option value="paused">Pausado</option>
@@ -275,23 +259,20 @@
         </select>
       </div>
       <div class="card-tasks">
-        <div class="tasks"><div class="task-row" id="trow-oqgdan6n" draggable="true" data-tid="oqgdan6n" data-pid="y21r7dpg"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">Solucionar deslindes con lotes 25 y 26</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">×</button></div><div class="task-row" id="trow-o5famo6o" draggable="true" data-tid="o5famo6o" data-pid="y21r7dpg"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">Definir estrategia de avance y respuesta de observaciones con abogados</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">×</button></div></div>
+        <div class="tasks"><div class="task-row" id="trow-oqgdan6n" draggable="true" data-tid="oqgdan6n" data-pid="y21r7dpg"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">Solucionar deslindes con lotes 25 y 26</span><span class="task-date " onclick="editTaskDate(event,&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">27-03-2026</span><button class="tdel" onclick="delTask(&#39;y21r7dpg&#39;,&#39;oqgdan6n&#39;)">×</button></div><div class="task-row" id="trow-o5famo6o" draggable="true" data-tid="o5famo6o" data-pid="y21r7dpg"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">Definir estrategia de avance y respuesta de observaciones con abogados</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;y21r7dpg&#39;,&#39;o5famo6o&#39;)">×</button></div></div>
         <div class="add-row">
           <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;y21r7dpg&#39;,this)">
           <button class="fdel" onclick="delProject(&#39;y21r7dpg&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card" id="card-8jhdm1gv" draggable="true" data-pid="8jhdm1gv">
+    </div><div class="card open" id="card-8jhdm1gv" draggable="true" data-pid="8jhdm1gv">
       <div class="card-main">
-        <button class="col-toggle" id="tog-8jhdm1gv" onclick="toggleCard(&#39;8jhdm1gv&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;8jhdm1gv&#39;)">LOTE 14 - ANTEPROYECTO</div>
+        <button class="col-toggle" id="tog-8jhdm1gv" onclick="toggleCard(&#39;8jhdm1gv&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;8jhdm1gv&#39;)">ANTEPROYECTO LOTE 14</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:60%"></div></div></div>
         <div class="col-count">3/5</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;8jhdm1gv&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;8jhdm1gv&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;8jhdm1gv&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>23-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;8jhdm1gv&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active" selected="">Activo</option>
           <option value="paused">Pausado</option>
@@ -302,23 +283,20 @@
         </select>
       </div>
       <div class="card-tasks">
-        <div class="tasks"><div class="task-row" id="trow-zc6s1pwu" draggable="true" data-tid="zc6s1pwu" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">Reingreso de Anteproyecto</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">×</button></div><div class="task-row" id="trow-9qo8rh8z" draggable="true" data-tid="9qo8rh8z" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">Seguimiento a Certificado DGAC</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">×</button></div><div class="task-row" id="trow-hpg1oow0" draggable="true" data-tid="hpg1oow0" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">Pagar certificado de la DGAC para que se inicie trámite</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">×</button></div><div class="task-row" id="trow-q9iwq71w" draggable="true" data-tid="q9iwq71w" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">Armar polígono en GoogleEarth para solicitud</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">×</button></div><div class="task-row" id="trow-af4hey8d" draggable="true" data-tid="af4hey8d" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">Llenar formulario DGAC para solicitud de certificado</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">×</button></div></div>
+        <div class="tasks"><div class="task-row" id="trow-9qo8rh8z" draggable="true" data-tid="9qo8rh8z" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">Seguimiento a Certificado DGAC</span><span class="task-date " onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">23-03-2026</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;9qo8rh8z&#39;)">×</button></div><div class="task-row" id="trow-zc6s1pwu" draggable="true" data-tid="zc6s1pwu" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">Reingreso de Anteproyecto</span><span class="task-date " onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">03-04-2026</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;zc6s1pwu&#39;)">×</button></div><div class="task-row" id="trow-hpg1oow0" draggable="true" data-tid="hpg1oow0" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">Pagar certificado de la DGAC para que se inicie trámite</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;hpg1oow0&#39;)">×</button></div><div class="task-row" id="trow-q9iwq71w" draggable="true" data-tid="q9iwq71w" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">Armar polígono en GoogleEarth para solicitud</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;q9iwq71w&#39;)">×</button></div><div class="task-row" id="trow-af4hey8d" draggable="true" data-tid="af4hey8d" data-pid="8jhdm1gv"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">Llenar formulario DGAC para solicitud de certificado</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;8jhdm1gv&#39;,&#39;af4hey8d&#39;)">×</button></div></div>
         <div class="add-row">
           <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;8jhdm1gv&#39;,this)">
           <button class="fdel" onclick="delProject(&#39;8jhdm1gv&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card" id="card-feu4mszx" draggable="true" data-pid="feu4mszx">
+    </div><div class="card open" id="card-feu4mszx" draggable="true" data-pid="feu4mszx">
       <div class="card-main">
-        <button class="col-toggle" id="tog-feu4mszx" onclick="toggleCard(&#39;feu4mszx&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;feu4mszx&#39;)">SAN DAMIÁN - SUBDIVISIÓN</div>
+        <button class="col-toggle" id="tog-feu4mszx" onclick="toggleCard(&#39;feu4mszx&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;feu4mszx&#39;)">SUBDIVISIÓN SAN DAMIÁN</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/1</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;feu4mszx&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;feu4mszx&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;feu4mszx&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>27-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;feu4mszx&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active" selected="">Activo</option>
           <option value="paused">Pausado</option>
@@ -329,23 +307,20 @@
         </select>
       </div>
       <div class="card-tasks">
-        <div class="tasks"><div class="task-row" id="trow-ue28c6lb" draggable="true" data-tid="ue28c6lb" data-pid="feu4mszx"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">Solicitar reunión con Directora de Obras</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">×</button></div></div>
+        <div class="tasks"><div class="task-row" id="trow-ue28c6lb" draggable="true" data-tid="ue28c6lb" data-pid="feu4mszx"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">Solicitar reunión con Directora de Obras</span><span class="task-date " onclick="editTaskDate(event,&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">27-03-2026</span><button class="tdel" onclick="delTask(&#39;feu4mszx&#39;,&#39;ue28c6lb&#39;)">×</button></div></div>
         <div class="add-row">
           <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;feu4mszx&#39;,this)">
           <button class="fdel" onclick="delProject(&#39;feu4mszx&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card" id="card-rmsi6knu" draggable="true" data-pid="rmsi6knu">
+    </div><div class="card open" id="card-rmsi6knu" draggable="true" data-pid="rmsi6knu">
       <div class="card-main">
-        <button class="col-toggle" id="tog-rmsi6knu" onclick="toggleCard(&#39;rmsi6knu&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;rmsi6knu&#39;)">WILCKENS - SUBDIVISIÓN HIJUELA A</div>
+        <button class="col-toggle" id="tog-rmsi6knu" onclick="toggleCard(&#39;rmsi6knu&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;rmsi6knu&#39;)">SUBDIVISIÓN HIJUELA A WILCKENS</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/2</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;rmsi6knu&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;rmsi6knu&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;rmsi6knu&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>27-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;rmsi6knu&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active" selected="">Activo</option>
           <option value="paused">Pausado</option>
@@ -362,17 +337,14 @@
           <button class="fdel" onclick="delProject(&#39;rmsi6knu&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card" id="card-w3rxvjzv" draggable="true" data-pid="w3rxvjzv">
+    </div><div class="card open" id="card-w3rxvjzv" draggable="true" data-pid="w3rxvjzv">
       <div class="card-main">
-        <button class="col-toggle" id="tog-w3rxvjzv" onclick="toggleCard(&#39;w3rxvjzv&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;w3rxvjzv&#39;)">BROWN - LAS CAMPIÑAS</div>
+        <button class="col-toggle" id="tog-w3rxvjzv" onclick="toggleCard(&#39;w3rxvjzv&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;w3rxvjzv&#39;)">CASA LAS CAMPIÑAS</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/8</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;w3rxvjzv&#39;)">27-03-2026 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;w3rxvjzv&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;w3rxvjzv&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>27-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;w3rxvjzv&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active" selected="">Activo</option>
           <option value="paused">Pausado</option>
@@ -389,44 +361,14 @@
           <button class="fdel" onclick="delProject(&#39;w3rxvjzv&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card" id="card-fih66qra" draggable="true" data-pid="fih66qra">
+    </div><div class="card open" id="card-zbcyusvj" draggable="true" data-pid="zbcyusvj">
       <div class="card-main">
-        <button class="col-toggle" id="tog-fih66qra" onclick="toggleCard(&#39;fih66qra&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;fih66qra&#39;)">PERSONAL</div>
-        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:33%"></div></div></div>
-        <div class="col-count">1/3</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;fih66qra&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high">↑ Alta</option>
-          <option value="low" selected="">↓ Baja</option>
-        </select>
-        <select class="ssel" onchange="chStatus(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="active" selected="">Activo</option>
-          <option value="paused">Pausado</option>
-          <option value="done">Completado</option>
-        </select>
-        <select class="csel-card" onchange="chCat(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="Oficina">Oficina</option><option value="Personal" selected="">Personal</option><option value="Externos">Externos</option>
-        </select>
-      </div>
-      <div class="card-tasks">
-        <div class="tasks"><div class="task-row" id="trow-4thjc31q" draggable="true" data-tid="4thjc31q" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;fih66qra&#39;,&#39;4thjc31q&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">Renovar permiso de conducir</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">×</button></div><div class="task-row" id="trow-0sc7wbtn" draggable="true" data-tid="0sc7wbtn" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">Hacer excel y análisis de ingresos</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">×</button></div><div class="task-row" id="trow-6apo0ymg" draggable="true" data-tid="6apo0ymg" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">Lavar Bicicleta</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">×</button></div></div>
-        <div class="add-row">
-          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;fih66qra&#39;,this)">
-          <button class="fdel" onclick="delProject(&#39;fih66qra&#39;)">− Eliminar</button>
-        </div>
-      </div>
-    </div><div class="card" id="card-zbcyusvj" draggable="true" data-pid="zbcyusvj">
-      <div class="card-main">
-        <button class="col-toggle" id="tog-zbcyusvj" onclick="toggleCard(&#39;zbcyusvj&#39;,event)">+</button>
-        <div class="card-name" onclick="startRenameProject(event,&#39;zbcyusvj&#39;)">4LIFE - SEGUROS</div>
+        <button class="col-toggle" id="tog-zbcyusvj" onclick="toggleCard(&#39;zbcyusvj&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;zbcyusvj&#39;)">ESTUDIO NORMATIVO 4LIFE SEGUROS</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:100%"></div></div></div>
         <div class="col-count">4/4</div>
-        <span class="meta-date" onclick="startEditDate(event,&#39;zbcyusvj&#39;)">+ fecha <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;opacity:0.5"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-        <select class="psel" onchange="chPrio(&#39;zbcyusvj&#39;,this.value)" onclick="event.stopPropagation()">
-          <option value="high" selected="">↑ Alta</option>
-          <option value="low">↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,&#39;zbcyusvj&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>09-03-2026</span>
+
         <select class="ssel" onchange="chStatus(&#39;zbcyusvj&#39;,this.value)" onclick="event.stopPropagation()">
           <option value="active">Activo</option>
           <option value="paused">Pausado</option>
@@ -443,6 +385,30 @@
           <button class="fdel" onclick="delProject(&#39;zbcyusvj&#39;)">− Eliminar</button>
         </div>
       </div>
+    </div><div class="card open" id="card-fih66qra" draggable="true" data-pid="fih66qra">
+      <div class="card-main">
+        <button class="col-toggle" id="tog-fih66qra" onclick="toggleCard(&#39;fih66qra&#39;,event)">−</button>
+        <div class="card-name" onclick="startRenameProject(event,&#39;fih66qra&#39;)">PERSONAL</div>
+        <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:33%"></div></div></div>
+        <div class="col-count">1/3</div>
+        <span class="meta-date" onclick="startEditDate(event,&#39;fih66qra&#39;)"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>23-04-2026</span>
+
+        <select class="ssel" onchange="chStatus(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="active" selected="">Activo</option>
+          <option value="paused">Pausado</option>
+          <option value="done">Completado</option>
+        </select>
+        <select class="csel-card" onchange="chCat(&#39;fih66qra&#39;,this.value)" onclick="event.stopPropagation()">
+          <option value="Oficina">Oficina</option><option value="Personal" selected="">Personal</option><option value="Externos">Externos</option>
+        </select>
+      </div>
+      <div class="card-tasks">
+        <div class="tasks"><div class="task-row" id="trow-4thjc31q" draggable="true" data-tid="4thjc31q" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;fih66qra&#39;,&#39;4thjc31q&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">Renovar permiso de conducir</span><span class="task-date " onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">23-04-2026</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;4thjc31q&#39;)">×</button></div><div class="task-row" id="trow-0sc7wbtn" draggable="true" data-tid="0sc7wbtn" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb " onclick="toggle(&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)"></div><span class="task-t " onclick="renameTask(event,&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">Hacer excel y análisis de ingresos</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;0sc7wbtn&#39;)">×</button></div><div class="task-row" id="trow-6apo0ymg" draggable="true" data-tid="6apo0ymg" data-pid="fih66qra"><span class="drag-handle" title="Arrastrar">⠿</span><div class="cb on" onclick="toggle(&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)"></div><span class="task-t done" onclick="renameTask(event,&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">Lavar Bicicleta</span><span class="task-date no-date" onclick="editTaskDate(event,&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">+ fecha</span><button class="tdel" onclick="delTask(&#39;fih66qra&#39;,&#39;6apo0ymg&#39;)">×</button></div></div>
+        <div class="add-row">
+          <input type="text" placeholder="+ Tarea" onkeydown="if(event.key===&#39;Enter&#39;)addTask(&#39;fih66qra&#39;,this)">
+          <button class="fdel" onclick="delProject(&#39;fih66qra&#39;)">− Eliminar</button>
+        </div>
+      </div>
     </div></div>
 
 <div class="overlay" id="overlay">
@@ -456,9 +422,7 @@
       </div>
     </div>
     <div class="field-row">
-      <div class="field"><label>Prioridad</label>
-        <select id="mp"><option value="high" selected="">Alta</option><option value="low">Baja</option></select>
-      </div>
+
       <div class="field"><label>Fecha límite</label><input type="date" id="md"></div>
     </div>
     <div class="cat-manager">
@@ -498,7 +462,7 @@ const api = async (path, method='GET', body=null) => {
 
 const uid = () => Math.random().toString(36).slice(2,10);
 let ps = [], cats = [];
-let fs = {s:'all', p:'all', c:'all'};
+let fs = {s:'all', c:'all'};
 
 function sortTasks(tasks) {
   return tasks.sort((a, b) => {
@@ -649,7 +613,7 @@ function render() {
   const tot = ps.length, act = ps.filter(p=>p.status==='active').length;
   const totalTasks = ps.reduce((acc,p)=>acc+p.tasks.length,0), doneTasks = ps.reduce((acc,p)=>acc+p.tasks.filter(t=>t.done).length,0);
   document.getElementById('sub').textContent = `${tot} proyecto${tot!==1?'s':''} · ${act} activo${act!==1?'s':''} · ${doneTasks}/${totalTasks} tarea${totalTasks!==1?'s':''}`;
-  const vis = ps.filter(p=>(fs.s==='all'||p.status===fs.s)&&(fs.p==='all'||p.prio===fs.p)&&(fs.c==='all'||p.cat===fs.c));
+  const vis = ps.filter(p=>(fs.s==='all'||p.status===fs.s)&&(fs.c==='all'||p.cat===fs.c));
   if(!vis.length) { grid.innerHTML='<div class="empty">Sin resultados.</div>'; return; }
   grid.innerHTML = vis.map(p => {
     const pc = pct(p.tasks), dl = dlInfo(p.dl);
@@ -660,11 +624,8 @@ function render() {
         <div class="card-name" onclick="startRenameProject(event,'${p.id}')">${p.name}</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:${pc}%"></div></div></div>
         <div class="col-count">${p.tasks.filter(t=>t.done).length}/${p.tasks.length}</div>
-        <span class="meta-date" onclick="startEditDate(event,'${p.id}')">${dl||nearestTaskDate(p)||'+ fecha'} <svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:-1px;opacity:0.5'><rect x='3' y='4' width='18' height='18' rx='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/></svg></span>
-        <select class="psel" onchange="chPrio('${p.id}',this.value)" onclick="event.stopPropagation()">
-          <option value="high" ${p.prio==='high'?'selected':''}>↑ Alta</option>
-          <option value="low" ${p.prio==='low'?'selected':''}>↓ Baja</option>
-        </select>
+        <span class="meta-date" onclick="startEditDate(event,'${p.id}')"><svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/></svg>${dl||nearestTaskDate(p)||'+ fecha'}</span>
+
         <select class="ssel" onchange="chStatus('${p.id}',this.value)" onclick="event.stopPropagation()">
           <option value="active" ${p.status==='active'?'selected':''}>Activo</option>
           <option value="paused" ${p.status==='paused'?'selected':''}>Pausado</option>
@@ -710,7 +671,7 @@ function startEditDate(e, pid) {
     const newSpan = document.createElement('span');
     newSpan.className='meta-date';
     newSpan.onclick=(ev)=>startEditDate(ev,pid);
-    newSpan.textContent=dlInfo(p.dl)||'+ fecha';
+    newSpan.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'+(dlInfo(p.dl)||'+ fecha');
     inp.replaceWith(newSpan);
     setSyncDot('loading');
     try { await api(`projects?id=eq.${pid}`, 'PATCH', {dl: p.dl}); setSyncDot('ok'); }
@@ -806,13 +767,6 @@ async function chStatus(pid, s) {
   catch(e) { setSyncDot('err'); }
 }
 
-async function chPrio(pid, p) {
-  ps.find(x=>x.id===pid).prio = p; render();
-  setSyncDot('loading');
-  try { await api(`projects?id=eq.${pid}`, 'PATCH', {prio: p}); setSyncDot('ok'); }
-  catch(e) { setSyncDot('err'); }
-}
-
 async function chCat(pid, c) {
   ps.find(x=>x.id===pid).cat = c; render();
   setSyncDot('loading');
@@ -839,11 +793,11 @@ async function create() {
   const name = document.getElementById('mn').value.trim();
   if(!name) return;
   const id = uid();
-  const newP = { id, name, cat: document.getElementById('mcat').value, status: document.getElementById('ms').value, prio: document.getElementById('mp').value, dl: document.getElementById('md').value||null, tasks: [] };
+  const newP = { id, name, cat: document.getElementById('mcat').value, status: document.getElementById('ms').value, dl: document.getElementById('md').value||null, tasks: [] };
   ps.push(newP);
   closeModal(); render();
   setSyncDot('loading');
-  try { await api('projects', 'POST', {id, name:newP.name, cat:newP.cat, status:newP.status, prio:newP.prio, dl:newP.dl}); setSyncDot('ok'); }
+  try { await api('projects', 'POST', {id, name:newP.name, cat:newP.cat, status:newP.status, dl:newP.dl}); setSyncDot('ok'); }
   catch(e) { setSyncDot('err'); }
 }
 
