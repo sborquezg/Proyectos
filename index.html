@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/sborq/Downloads/index_16.html -->
+<!-- saved from url=(0046)file:///C:/Users/sborq/Downloads/index_18.html -->
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proyectos</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=DM+Sans:wght@500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=DM+Sans:wght@500;600&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg: #faf8f4; --bg-secondary: #f4f1ec; --text: #1a1a1a;
@@ -41,7 +41,7 @@
   .card { background: var(--bg); }
   .card:hover { background: var(--bg-secondary); }
   .card-main { display: grid; grid-template-columns: 16px 2fr 110px 28px 105px 90px 75px; align-items: center; gap: 8px; padding: 0.75rem 1rem; }
-  .card-name { font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); cursor: text; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: 0.02em; }
+  .card-name { font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 550; color: var(--text); cursor: text; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: 0.02em; }
   .card-name:hover { border-bottom: 0.5px solid var(--border-secondary); }
   .card-name[contenteditable="true"] { outline: none; white-space: normal; overflow: visible; }
   .csel-card { font-size: 12px; color: var(--text-tertiary); border: 0.5px solid var(--border); border-radius: 2px; padding: 0 5px; background: transparent; outline: none; font-family: var(--font); width: 100%; -webkit-appearance: none; appearance: none; text-align: center; text-align-last: center; height: 1.6em; line-height: 1.6; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -186,16 +186,16 @@
     </select>
   </div>
   <div style="margin-left:auto;display:flex;gap:16px;align-items:center;padding-left:16px;">
-    <button class="btn-new" id="btn-expand" onclick="toggleAll()">− Colapsar</button>
+    <button class="btn-new" id="btn-expand" onclick="toggleAll()">+ Expandir</button>
     <button class="btn-new" onclick="toggleCatPanel()">+ Categoría</button>
     <button class="btn-new" onclick="openModal()">+ Nuevo</button>
     <span class="sync-dot ok" id="sync-dot"></span>
   </div>
 </div>
 
-<div class="grid" id="grid"><div class="card open" id="card-1dd3jezd" draggable="true" data-pid="1dd3jezd">
+<div class="grid" id="grid"><div class="card" id="card-1dd3jezd" draggable="true" data-pid="1dd3jezd">
       <div class="card-main">
-        <button class="col-toggle" id="tog-1dd3jezd" onclick="toggleCard(&#39;1dd3jezd&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-1dd3jezd" onclick="toggleCard(&#39;1dd3jezd&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;1dd3jezd&#39;)">MODIFICACIÓN DE LOTEO VALLE ESCONDIDO</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:25%"></div></div></div>
         <div class="col-count">1/4</div>
@@ -217,9 +217,9 @@
           <button class="fdel" onclick="delProject(&#39;1dd3jezd&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-vsvxf3x6" draggable="true" data-pid="vsvxf3x6">
+    </div><div class="card" id="card-vsvxf3x6" draggable="true" data-pid="vsvxf3x6">
       <div class="card-main">
-        <button class="col-toggle" id="tog-vsvxf3x6" onclick="toggleCard(&#39;vsvxf3x6&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-vsvxf3x6" onclick="toggleCard(&#39;vsvxf3x6&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;vsvxf3x6&#39;)">CIERRE DE CALLES VALLE ESCONDIDO</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/2</div>
@@ -241,9 +241,9 @@
           <button class="fdel" onclick="delProject(&#39;vsvxf3x6&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-y21r7dpg" draggable="true" data-pid="y21r7dpg">
+    </div><div class="card" id="card-y21r7dpg" draggable="true" data-pid="y21r7dpg">
       <div class="card-main">
-        <button class="col-toggle" id="tog-y21r7dpg" onclick="toggleCard(&#39;y21r7dpg&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-y21r7dpg" onclick="toggleCard(&#39;y21r7dpg&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;y21r7dpg&#39;)">DIVISIÓN AFECTA AZÓCAR</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:50%"></div></div></div>
         <div class="col-count">1/2</div>
@@ -265,9 +265,9 @@
           <button class="fdel" onclick="delProject(&#39;y21r7dpg&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-8jhdm1gv" draggable="true" data-pid="8jhdm1gv">
+    </div><div class="card" id="card-8jhdm1gv" draggable="true" data-pid="8jhdm1gv">
       <div class="card-main">
-        <button class="col-toggle" id="tog-8jhdm1gv" onclick="toggleCard(&#39;8jhdm1gv&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-8jhdm1gv" onclick="toggleCard(&#39;8jhdm1gv&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;8jhdm1gv&#39;)">ANTEPROYECTO LOTE 14</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:60%"></div></div></div>
         <div class="col-count">3/5</div>
@@ -289,9 +289,9 @@
           <button class="fdel" onclick="delProject(&#39;8jhdm1gv&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-feu4mszx" draggable="true" data-pid="feu4mszx">
+    </div><div class="card" id="card-feu4mszx" draggable="true" data-pid="feu4mszx">
       <div class="card-main">
-        <button class="col-toggle" id="tog-feu4mszx" onclick="toggleCard(&#39;feu4mszx&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-feu4mszx" onclick="toggleCard(&#39;feu4mszx&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;feu4mszx&#39;)">SUBDIVISIÓN SAN DAMIÁN</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/1</div>
@@ -313,9 +313,9 @@
           <button class="fdel" onclick="delProject(&#39;feu4mszx&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-rmsi6knu" draggable="true" data-pid="rmsi6knu">
+    </div><div class="card" id="card-rmsi6knu" draggable="true" data-pid="rmsi6knu">
       <div class="card-main">
-        <button class="col-toggle" id="tog-rmsi6knu" onclick="toggleCard(&#39;rmsi6knu&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-rmsi6knu" onclick="toggleCard(&#39;rmsi6knu&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;rmsi6knu&#39;)">SUBDIVISIÓN HIJUELA A WILCKENS</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/2</div>
@@ -337,9 +337,9 @@
           <button class="fdel" onclick="delProject(&#39;rmsi6knu&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-w3rxvjzv" draggable="true" data-pid="w3rxvjzv">
+    </div><div class="card" id="card-w3rxvjzv" draggable="true" data-pid="w3rxvjzv">
       <div class="card-main">
-        <button class="col-toggle" id="tog-w3rxvjzv" onclick="toggleCard(&#39;w3rxvjzv&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-w3rxvjzv" onclick="toggleCard(&#39;w3rxvjzv&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;w3rxvjzv&#39;)">CASA LAS CAMPIÑAS</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:0%"></div></div></div>
         <div class="col-count">0/8</div>
@@ -361,9 +361,9 @@
           <button class="fdel" onclick="delProject(&#39;w3rxvjzv&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-zbcyusvj" draggable="true" data-pid="zbcyusvj">
+    </div><div class="card" id="card-zbcyusvj" draggable="true" data-pid="zbcyusvj">
       <div class="card-main">
-        <button class="col-toggle" id="tog-zbcyusvj" onclick="toggleCard(&#39;zbcyusvj&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-zbcyusvj" onclick="toggleCard(&#39;zbcyusvj&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;zbcyusvj&#39;)">ESTUDIO NORMATIVO 4LIFE SEGUROS</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:100%"></div></div></div>
         <div class="col-count">4/4</div>
@@ -385,9 +385,9 @@
           <button class="fdel" onclick="delProject(&#39;zbcyusvj&#39;)">− Eliminar</button>
         </div>
       </div>
-    </div><div class="card open" id="card-fih66qra" draggable="true" data-pid="fih66qra">
+    </div><div class="card" id="card-fih66qra" draggable="true" data-pid="fih66qra">
       <div class="card-main">
-        <button class="col-toggle" id="tog-fih66qra" onclick="toggleCard(&#39;fih66qra&#39;,event)">−</button>
+        <button class="col-toggle" id="tog-fih66qra" onclick="toggleCard(&#39;fih66qra&#39;,event)">+</button>
         <div class="card-name" onclick="startRenameProject(event,&#39;fih66qra&#39;)">PERSONAL</div>
         <div class="col-prog"><div class="prog-track"><div class="prog-fill" style="width:33%"></div></div></div>
         <div class="col-count">1/3</div>
